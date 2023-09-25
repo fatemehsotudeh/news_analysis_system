@@ -36,7 +36,7 @@ def preprocess_persian_text(text):
 def tf_idf_vectorization(text):
     tfidf_vectorizer = TfidfVectorizer(max_features=1000)  
     text_features = tfidf_vectorizer.fit_transform(text).toarray()
-    return text_features
+    return tfidf_vectorizer, text_features
 
 
 

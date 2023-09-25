@@ -5,7 +5,6 @@
 
 
 import numpy as np
-from sklearn.model_selection import RandomizedSearchCV
 import joblib
 
 
@@ -31,25 +30,37 @@ def tune_hyperparameters(classifier, X, y, param_dist):
     search = RandomizedSearchCV(
         classifier,
         param_distributions=param_dist,
-        n_iter=100,
+        n_iter=50,
         cv=5, 
         n_jobs=-1,
-        verbose=2,
         random_state=42
     )
     
     search.fit(X, y)
 
     best_params = search.best_params_
-    
-    best_model = classifier.set_params(**best_params)
-    
-    return best_model
-      
+
+    return best_params
+
 
 # In[7]:
 
 
 def save_model(model, path):
     joblib.dump(model, path)
+
+
+# In[12]:
+
+
+def load_model(model_path):
+    with open(model_path, 'rb') as model_file:
+        model = joblib.load(model_file)
+    return model
+
+
+# In[ ]:
+
+
+
 
